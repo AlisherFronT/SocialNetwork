@@ -4,11 +4,12 @@ import {emptyNotification, getAllNotifications} from "../../redux/reducers/notif
 import {Image, Button, useToast} from "@chakra-ui/react";
 import axios from "../../utils/axios";
 import {fillUser} from "../../redux/reducers/user";
+import {notificationSelector, userSelector} from "../../redux/reselect";
 
 const Notifications = () => {
 
-    const {user} = useSelector(store => store.persistedReducer.user)
-    const {data} = useSelector(store => store.persistedReducer.notification)
+    const {user} = useSelector(userSelector)
+    const {data} = useSelector(notificationSelector)
     const dispatch = useDispatch()
     const toast = useToast()
 

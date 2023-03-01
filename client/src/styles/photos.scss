@@ -1,0 +1,53 @@
+.photos{
+  background: #000;
+  min-height: 100vh;
+  padding: 50px 0 50px;
+  &__content{
+    background: #222222;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  &__top{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid grey;
+    align-items: center;
+  }
+  &__btns{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+  }
+  &__empty{
+    padding: 70px 0;
+    text-align: center;
+  }
+  &__image{
+    position: relative;
+    padding: 45px 0;
+    &-img{
+      width: 300px;
+      object-fit: cover;
+    }
+    &-close{
+      position: absolute;
+      top: 45px;
+      left: 5px;
+    }
+    &-field{
+      border-top-left-radius: 0!important;
+      border-top-right-radius: 0!important;
+    }
+  }
+  &__row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    &-img{
+      width: calc(33.33333% - 13.33333px);
+      object-fit: cover;
+    }
+  }
+
+}

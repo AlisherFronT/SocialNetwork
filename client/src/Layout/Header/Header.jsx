@@ -4,7 +4,7 @@ import HeaderSearch from "./HeaderSearch";
 import noUser from '../../assets/noUser.png'
 import {BiChevronsDown} from 'react-icons/bi'
 import SwitchLang from "./SwitchLang/SwitchLang";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AiFillSetting} from 'react-icons/ai'
 import {MdOutlineLanguage} from 'react-icons/md'
 import {BsPaletteFill} from 'react-icons/bs'
@@ -23,12 +23,14 @@ import {
 } from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
 import {logOutUser} from "../../redux/reducers/user";
+import {userSelector} from "../../redux/reselect";
 
 const Header = () => {
 
 
-    const {user} = useSelector(store=> store.persistedReducer.user)
+    const {user} = useSelector(userSelector)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
 
     return (
@@ -64,7 +66,7 @@ const Header = () => {
                                 <PopoverCloseButton  />
                                 <PopoverArrow   bg='black'/>
                                 <div className='header__popover'>
-                                    <div className='header__popover-top'>
+                                    <div className='header__popover-top' onClick={() => navigate('/myprofile')}>
                                         <Avatar className='header__popover-img'  name={`${user.name} ${user.surname}`} src={`${process.env.REACT_APP_URL}${user.image}`}/>
                                         <div>
                                             <h3 className='header__popover-title'>{user.name} {user.surname}</h3>
