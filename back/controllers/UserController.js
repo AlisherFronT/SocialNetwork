@@ -77,7 +77,6 @@ export const login = async (req, res) => {
     }
 }
 
-
 export const getMe = async (req,res) => {
     try {
         const userId = req.params.id
@@ -97,7 +96,6 @@ export const getMe = async (req,res) => {
     }
 }
 
-
 export const getAllUser = async (req, res) => {
     try {
 
@@ -110,6 +108,15 @@ export const getAllUser = async (req, res) => {
         //     let arr = req.query.notification.split(',')
         //     users = users.filter(item => arr.includes(item._id.toString()) )
         // }
+
+        if ('friends' in req.query){
+            if (req.query.friends && req.query.friends.length) {
+                let arr = req.query.friends.split(',')
+                users = users.filter(item => arr.includes(item._id.toString()) )
+            } else {
+                users = []
+            }
+        }
 
         if ('notification' in req.query){
             if (req.query.notification && req.query.notification.length) {
@@ -141,7 +148,6 @@ export const getAllUser = async (req, res) => {
         })
     }
 }
-
 
 export const sendRequest = async (req, res) => {
     try {
@@ -202,7 +208,6 @@ export const sendRequest = async (req, res) => {
         })
     }
 }
-
 
 export const cancelMYRequest = async (req, res) => {
     try {
@@ -302,6 +307,41 @@ export const addPhoto = async (req, res) => {
     }
 }
 
+export const addPost = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const user = await UserModel.findById(userId)
+
+        UserModel.findByIdAndUpdate({
+            _id: userId
+        }, {
+            photos : [...user.post, req.body.post]
+        } ,{
+            returnDocument: 'after',
+        },(err, doc) => {
+            if (err) {
+                console.log(err)
+                return  res.status(500).json({
+                    message: 'Не удалось добавить пост'
+                })
+            }
+            if (!doc) {
+                return res.status(404).json({
+                    message: 'Юзер не найден'
+                })
+            }
+            res.json(doc)
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось отправить запрос '
+        }, {
+            returnDocument: 'after',
+        })
+    }
+}
+
 export const acceptRequest = async (req, res) => {
     try {
         const userId = req.body.recieverId
@@ -362,7 +402,6 @@ export const acceptRequest = async (req, res) => {
     }
 }
 
-
 export const cancelRequest = async (req, res) => {
     try {
         const userId = req.body.recieverId
@@ -420,10 +459,6 @@ export const cancelRequest = async (req, res) => {
         })
     }
 }
-
-
-
-
 
 export const handleFavorites = async (req, res) => {
     try {

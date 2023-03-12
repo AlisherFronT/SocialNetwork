@@ -8,9 +8,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import DownLoadBtn from '../../components/DownloadBtn/DownloadBtn'
 import { fillUser } from '../../redux/reducers/user'
 import axios from '../../utils/axios'
+import {days, months, years} from "../../utils/birthday"
+
 
 const Friends = () => {
-	const { t } = useTranslation()
 
 	const [images, setImages] = useState('')
 
@@ -25,12 +26,15 @@ const Friends = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onTouched' })
 
+    const  {t, i18n} = useTranslation()
+
 	const registerUser = data => {
-		const { passwordAgain, ...other } = data
+		const { passwordAgain, months, day, year, ...other } = data
 
 		axios
 			.post('/auth/register', {
 				...other,
+                birthday: `${day} ${months} ${year}`,
 				image: images,
 			})
 			.then(({ data }) => {
@@ -279,24 +283,34 @@ const Friends = () => {
 						<div className='register__block'>
 							<label className='register__label'>
 								<h2 className='register__label-title'>{t('form.labelAge')}</h2>
-								<input
-									type='date'
-									{...register('birthday', {
-										required: { value: true, message: 'Enter a date' },
-									})}
-									style={{
-										border: errors.birthday && '#f5222d 1px solid',
-									}}
-									className='register__field'
-								/>
-								<span className='register__error'>
-									{errors.birthday && <BiErrorCircle fill='#f5222d' />}
-									<span className='register__error-text'>
-										{errors.birthday && errors.birthday.message}
-									</span>
-								</span>
-							</label>
+								<div>
 
+                                    <select {...register('day')} className="editMyProfile__field">
+                                        {
+                                            days.map((item) => (
+                                                <option key={item} value={item}>{item}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    <select {...register('month')} className="editMyProfile__field">
+                                        {
+                                            months.map((item) => (
+                                                <option key={item.en} value={item.en}>{i18n.language === 'ru' ? item.ru : item.en}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    <select {...register('year')} className="editMyProfile__field">
+                                        {
+                                            years(2007).map((item) => (
+                                                <option key={item} value={item}>{item}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
+							</label>
+                        </div>
+
+                        <div className='register__block'>
 							<label className='register__label'>
 								<h2 className='register__label-title'>{t('form.labelCity')}</h2>
 								<input

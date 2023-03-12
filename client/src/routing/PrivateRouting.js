@@ -8,6 +8,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import Notifications from "../pages/Notifications/Notifications";
 import Request from "../pages/Requests/Request";
 import Photos from "../pages/Photos/Photos";
+import EditMyProfile from "../pages/EditMyProfile/EditMyProfile";
+import Chat from "../pages/Chat/Chat";
 
 const PrivateRouting = () => {
     return (
@@ -19,7 +21,10 @@ const PrivateRouting = () => {
                 <Route path='notifications' element={<Notifications/>}/>
                 <Route path='requests' element={<Request/>}/>
                 <Route path='photos' element={<Photos/>}/>
+                <Route path='editmyprofile' element={<EditMyProfile/>}/>
+                <Route path='chat/*' element={<Chat/>}/>
                 <Route path='*' element={<NotFound/>}/>
+
             </Route>
         </Routes>
     );

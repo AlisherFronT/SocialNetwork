@@ -11,8 +11,10 @@ import {
     getMe,
     login,
     register,
-    sendRequest
+    sendRequest, addPost
 } from "./controllers/UserController.js";
+import {createChat, getChats} from "./controllers/ChatController.js";
+import {getMessages, sendMessage} from "./controllers/MessageController.js";
 
 
 mongoose.connect('mongodb+srv://maxbirimkulov:020599maks@itrunsocial.0y7gues.mongodb.net/?retryWrites=true&w=majority')
@@ -50,6 +52,7 @@ server.post('/upload',  upload.single('image'), (req, res) => {
 server.post('/auth/login', handleValidatorErrors, login)
 server.post('/auth/register',  register )
 server.patch('/users/:id/addphoto', addPhoto)
+server.patch('/users/:id/addpost', addPost)
 server.get('/users/:id',  getMe )
 server.get('/users',  getAllUser )
 
@@ -58,9 +61,11 @@ server.patch('/request/cancel', cancelRequest)
 server.patch('/request/mycancel', cancelMYRequest)
 server.patch('/request/:id', sendRequest)
 
+server.post('/chats', createChat)
+server.post('/chats/:id', getChats)
 
-
-
+server.post('/messages/send', sendMessage)
+server.get('/messages/:id', getMessages)
 
 
 server.listen(PORT, (err) => {

@@ -1,5 +1,53 @@
 .profile {
-  width: 85%;
+  background: #000;
+  height: 200vh;
+  padding: 40px 0;
+ &__emoji-block{
+   width: 350px;
+   height: 400px;
+   position: absolute;
+   top: 10px;
+   right: 10px;
+ }
+  &__posts{
+    position: relative;
+    background: #222222;
+    border-radius: 20px;
+    border: 1px solid #adb5bd;
+    background: rgba(207, 217, 233, 0.32);
+    margin-top: 40px;
+    padding: 15px;
+    &-top{
+      display: flex;
+      column-gap: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #424242;
+    }
+    &-row{
+      margin-top: 35px;
+      flex-direction: column;
+      display: flex;
+    }
+  }
+  &__addPost{
+    position: relative;
+    background: #222222;
+    border-radius: 20px;
+    border: 1px solid #adb5bd;
+    background: rgba(207, 217, 233, 0.32);
+    min-height: 200px;
+    margin-top: 40px;
+    padding: 15px;
+    &-top{
+      display: flex;
+      justify-content: space-between;
+    }
+    &-field{
+      background: transparent;
+      width: 50%;
+      resize: none;
+    }
+  }
   &__info {
     background: #222222;
     border-radius: 20px;
@@ -7,7 +55,7 @@
     background: rgba(207, 217, 233, 0.32);;
     &-top {
       border-radius: 20px 20px 0 0;
-      height: 300px;
+      height: 220px;
       position: relative;
     }
     &-cover {
@@ -41,6 +89,8 @@
       border: 5px solid #222222;
       img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 50%;
       }
     }
